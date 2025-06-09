@@ -19,11 +19,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie createMovie(MovieDTO dto) {
-        Movie movie = Movie.builder()
-                .title(dto.getTitle())
-                .description(dto.getDescription())
-                .releaseYear(dto.getReleaseYear())
-                .build();
+        Movie movie = Movie.builder().title(dto.getTitle()).description(dto.getDescription()).releaseYear(dto.getReleaseYear()).build();
         return movieRepository.save(movie);
     }
 
@@ -34,8 +30,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Movie getMovieById(Long id) {
-        return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+        return movieRepository.findById(id).orElseThrow(() -> new RuntimeException("Movie not found"));
     }
 
     @Override
@@ -44,9 +39,6 @@ public class MovieServiceImpl implements MovieService {
         if (movie.getRatings() == null || movie.getRatings().isEmpty()) {
             return 0.0;
         }
-        return movie.getRatings().stream()
-                .mapToInt(Rating::getScore)
-                .average()
-                .orElse(0.0);
+        return movie.getRatings().stream().mapToInt(Rating::getScore).average().orElse(0.0);
     }
 }

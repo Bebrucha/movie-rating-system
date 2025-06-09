@@ -27,55 +27,23 @@ public class MovieController {
 
     @PostMapping
     @Operation(summary = "Add a new movie", description = "Creates a new movie in the system")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201",
-                    description = "Movie created successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Movie.class))),
-            @ApiResponse(responseCode = "400",
-                    description = "Invalid input data",
-                    content = @Content)
-    })
-    public ResponseEntity<Movie> addMovie(
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Movie data to be created",
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = MovieDTO.class)))
-            @RequestBody MovieDTO movieDTO) {
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Movie created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Movie.class))), @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content)})
+    public ResponseEntity<Movie> addMovie(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Movie data to be created", required = true, content = @Content(schema = @Schema(implementation = MovieDTO.class))) @RequestBody MovieDTO movieDTO) {
         Movie createdMovie = movieService.createMovie(movieDTO);
         return new ResponseEntity<>(createdMovie, HttpStatus.CREATED);
     }
 
     @GetMapping
     @Operation(summary = "Get all movies", description = "Retrieves a list of all movies in the system")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Movies retrieved successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(type = "array", implementation = Movie.class))),
-            @ApiResponse(responseCode = "500",
-                    description = "Internal server error",
-                    content = @Content)
-    })
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Movies retrieved successfully", content = @Content(mediaType = "application/json", schema = @Schema(type = "array", implementation = Movie.class))), @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)})
     public ResponseEntity<List<Movie>> getAllMovies() {
         return ResponseEntity.ok(movieService.getAllMovies());
     }
 
     @GetMapping("/{id}/average-rating")
-    @Operation(summary = "Get average rating for a movie",
-            description = "Calculates and returns the average rating for a specific movie")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Average rating calculated successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(type = "number", format = "double"))),
-            @ApiResponse(responseCode = "404",
-                    description = "Movie not found",
-                    content = @Content)
-    })
-    public ResponseEntity<Double> getAverageRating(
-            @Parameter(description = "ID of the movie to get average rating for", required = true)
-            @PathVariable Long id) {
+    @Operation(summary = "Get average rating for a movie", description = "Calculates and returns the average rating for a specific movie")
+    @ApiResponses(value = {@ApiResponse(responseCode = "200", description = "Average rating calculated successfully", content = @Content(mediaType = "application/json", schema = @Schema(type = "number", format = "double"))), @ApiResponse(responseCode = "404", description = "Movie not found", content = @Content)})
+    public ResponseEntity<Double> getAverageRating(@Parameter(description = "ID of the movie to get average rating for", required = true) @PathVariable Long id) {
         double avgRating = movieService.getAverageRating(id);
         return ResponseEntity.ok(avgRating);
     }

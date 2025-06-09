@@ -20,8 +20,7 @@ public class Rating {
     @Schema(description = "Rating score from 1 to 10", example = "8", minimum = "1", maximum = "10")
     private int score;
 
-    @Schema(description = "Written review accompanying the rating",
-            example = "Excellent movie with great character development")
+    @Schema(description = "Written review accompanying the rating", example = "Excellent movie with great character development")
     private String review;
 
     @ManyToOne

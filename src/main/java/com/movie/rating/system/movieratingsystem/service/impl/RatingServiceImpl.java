@@ -21,22 +21,15 @@ public class RatingServiceImpl implements RatingService {
 
     @Override
     public Rating addRating(RatingDTO dto) {
-        Movie movie = movieRepository.findById(dto.getMovieId())
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+        Movie movie = movieRepository.findById(dto.getMovieId()).orElseThrow(() -> new RuntimeException("Movie not found"));
 
-        User user = userRepository.findById(dto.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(dto.getUserId()).orElseThrow(() -> new RuntimeException("User not found"));
 
         if (dto.getScore() < 1 || dto.getScore() > 10) {
             throw new IllegalArgumentException("Score must be between 1 and 10");
         }
 
-        Rating rating = Rating.builder()
-                .movie(movie)
-                .user(user)
-                .score(dto.getScore())
-                .review(dto.getReview())
-                .build();
+        Rating rating = Rating.builder().movie(movie).user(user).score(dto.getScore()).review(dto.getReview()).build();
 
         return ratingRepository.save(rating);
     }

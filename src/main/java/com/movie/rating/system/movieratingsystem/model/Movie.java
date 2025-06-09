@@ -23,8 +23,7 @@ public class Movie {
     @Schema(description = "Title of the movie", example = "The Shawshank Redemption")
     private String title;
 
-    @Schema(description = "Description of the movie",
-            example = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.")
+    @Schema(description = "Description of the movie", example = "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.")
     private String description;
 
     @Schema(description = "Year the movie was released", example = "1994")

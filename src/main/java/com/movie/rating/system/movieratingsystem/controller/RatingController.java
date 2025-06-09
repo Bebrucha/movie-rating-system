@@ -23,26 +23,9 @@ public class RatingController {
     private final RatingService ratingService;
 
     @PostMapping
-    @Operation(summary = "Add a new rating",
-            description = "Creates a new rating for a movie by a user")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201",
-                    description = "Rating created successfully",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Rating.class))),
-            @ApiResponse(responseCode = "400",
-                    description = "Invalid rating data (score not between 1-10, invalid movie/user ID)",
-                    content = @Content),
-            @ApiResponse(responseCode = "404",
-                    description = "Movie or User not found",
-                    content = @Content)
-    })
-    public ResponseEntity<Rating> addRating(
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    description = "Rating data to be created",
-                    required = true,
-                    content = @Content(schema = @Schema(implementation = RatingDTO.class)))
-            @RequestBody RatingDTO ratingDTO) {
+    @Operation(summary = "Add a new rating", description = "Creates a new rating for a movie by a user")
+    @ApiResponses(value = {@ApiResponse(responseCode = "201", description = "Rating created successfully", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Rating.class))), @ApiResponse(responseCode = "400", description = "Invalid rating data (score not between 1-10, invalid movie/user ID)", content = @Content), @ApiResponse(responseCode = "404", description = "Movie or User not found", content = @Content)})
+    public ResponseEntity<Rating> addRating(@io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Rating data to be created", required = true, content = @Content(schema = @Schema(implementation = RatingDTO.class))) @RequestBody RatingDTO ratingDTO) {
         Rating rating = ratingService.addRating(ratingDTO);
         return new ResponseEntity<>(rating, HttpStatus.CREATED);
     }

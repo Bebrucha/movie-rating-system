@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface MovieService {
     Movie createMovie(MovieDTO movieDTO);
+
     List<Movie> getAllMovies();
+
     Movie getMovieById(Long id);
+
     double getAverageRating(Long movieId);
 }
