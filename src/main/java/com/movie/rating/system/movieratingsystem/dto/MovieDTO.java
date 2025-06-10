@@ -2,7 +2,6 @@ package com.movie.rating.system.movieratingsystem.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-//test
 
 @Data
 @Schema(description = "Data Transfer Object for creating/updating movies", requiredProperties = {"title"})
